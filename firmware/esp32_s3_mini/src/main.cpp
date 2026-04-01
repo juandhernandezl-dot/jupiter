@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <WiFi.h>
 #include <micro_ros_platformio.h>
 
 #include <rcl/rcl.h>
@@ -6,18 +7,18 @@
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
 
-#define RCCHECK(fn)                             \
-  {                                             \
-    rcl_ret_t rc = fn;                          \
-    if (rc != RCL_RET_OK) {                     \
-      error_loop();                             \
-    }                                           \
+#define RCCHECK(fn)                                      \
+  {                                                      \
+    rcl_ret_t rc = fn;                                   \
+    if (rc != RCL_RET_OK) {                              \
+      error_loop();                                      \
+    }                                                    \
   }
 
-#define RCSOFTCHECK(fn)                         \
-  {                                             \
-    rcl_ret_t rc = fn;                          \
-    (void)rc;                                   \
+#define RCSOFTCHECK(fn)                                  \
+  {                                                      \
+    rcl_ret_t rc = fn;                                   \
+    (void)rc;                                            \
   }
 
 rcl_publisher_t publisher;
@@ -49,16 +50,23 @@ void setup()
 {
   Serial.begin(115200);
 
-  // Espera breve para que el puerto USB CDC quede listo
-  unsigned long start = millis();
-  while (!Serial && (millis() - start < 3000)) {
+  unsigned long t0 = millis();
+  while (!Serial && (millis() - t0 < 3000)) {
     delay(10);
   }
   delay(1000);
 
-  // micro-ROS por serial USB
-  set_microros_serial_transports(Serial);
-  delay(1000);
+  IPAddress agent_ip;
+  agent_ip.fromString(MICROROS_AGENT_IP);
+
+  set_microros_wifi_transports(
+    (char *)MICROROS_WIFI_SSID,
+    (char *)MICROROS_WIFI_PASS,
+    agent_ip,
+    MICROROS_AGENT_PORT
+  );
+
+  delay(2000);
 
   allocator = rcl_get_default_allocator();
 
