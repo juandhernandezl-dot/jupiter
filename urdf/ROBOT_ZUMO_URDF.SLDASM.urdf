@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<robot name="ROBOT_ZUMO_URDF.SLDASM">
+
+  <!-- =========================
+       BASE
+       ========================= -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.0236 -5.1838E-05 -0.0061259" rpy="0 0 0" />
+      <mass value="0.11075" />
+      <inertia
+        ixx="4.9793E-05"
+        ixy="3.8196E-08"
+        ixz="2.6959E-06"
+        iyy="2.5319E-05"
+        iyz="-8.3368E-09"
+        izz="6.6541E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/base_link.STL" />
+      </geometry>
+      <material name="base_light">
+        <color rgba="0.93 0.93 0.93 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- =========================
+       LEFT WHEEL
+       ========================= -->
+  <link name="left_wheel_link">
+    <inertial>
+      <origin xyz="6.9713E-07 -1.653E-05 -0.0043321" rpy="0 0 0" />
+      <mass value="0.0029113" />
+      <inertia
+        ixx="2.8399E-07"
+        ixy="-4.3011E-12"
+        ixz="1.9308E-12"
+        iyy="2.8409E-07"
+        iyz="-4.5784E-11"
+        izz="5.3685E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/left_wheel_link.STL" />
+      </geometry>
+      <material name="wheel_dark">
+        <color rgba="0.20 0.20 0.20 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <origin xyz="0.02926 0.04866 -0.006" rpy="-1.5708 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="left_wheel_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="100" />
+    <dynamics damping="0.005" friction="0.03" />
+  </joint>
+
+  <!-- =========================
+       RIGHT WHEEL
+       ========================= -->
+  <link name="right_wheel_link">
+    <inertial>
+      <origin xyz="3.6323E-07 -1.6541E-05 0.0043321" rpy="0 0 0" />
+      <mass value="0.0029113" />
+      <inertia
+        ixx="2.8399E-07"
+        ixy="-2.2425E-12"
+        ixz="-1.0061E-12"
+        iyy="2.8409E-07"
+        iyz="4.5814E-11"
+        izz="5.3685E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/right_wheel_link.STL" />
+      </geometry>
+      <material name="wheel_dark_r">
+        <color rgba="0.20 0.20 0.20 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <origin xyz="0.02926 -0.04888 -0.006" rpy="-1.5708 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="right_wheel_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="100" />
+    <dynamics damping="0.005" friction="0.03" />
+  </joint>
+
+  <!-- =========================
+       RIGHT IDLER
+       ========================= -->
+  <link name="right_idler_link">
+    <inertial>
+      <origin xyz="1.3878E-17 -1.3878E-17 0.0054685" rpy="0 0 0" />
+      <mass value="0.0030148" />
+      <inertia
+        ixx="2.9977E-07"
+        ixy="-3.7071E-20"
+        ixz="1.5007E-23"
+        iyy="2.9977E-07"
+        iyz="-2.5771E-23"
+        izz="5.6146E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/right_idler_link.STL" />
+      </geometry>
+      <material name="idler_dark_r">
+        <color rgba="0.25 0.25 0.25 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/right_idler_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="right_idler_joint" type="continuous">
+    <origin xyz="-0.01974 -0.05063 -0.0062887" rpy="-1.5708 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="right_idler_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="100" />
+    <dynamics damping="0.001" friction="0.005" />
+  </joint>
+
+  <!-- =========================
+       LEFT IDLER
+       ========================= -->
+  <link name="left_idler_link">
+    <inertial>
+      <origin xyz="2.0817E-17 1.3878E-17 -0.0054685" rpy="0 0 0" />
+      <mass value="0.0030148" />
+      <inertia
+        ixx="2.9977E-07"
+        ixy="3.7601E-20"
+        ixz="-1.1937E-23"
+        iyy="2.9977E-07"
+        iyz="8.6886E-24"
+        izz="5.6146E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/left_idler_link.STL" />
+      </geometry>
+      <material name="idler_dark_l">
+        <color rgba="0.25 0.25 0.25 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/left_idler_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="left_idler_joint" type="continuous">
+    <origin xyz="-0.01974 0.05041 -0.0062887" rpy="-1.5708 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="left_idler_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="100" />
+    <dynamics damping="0.001" friction="0.005" />
+  </joint>
+
+  <!-- =========================
+       LEFT TRACK VISUAL ONLY
+       ========================= -->
+  <link name="left_track_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/left_track_link.STL" />
+      </geometry>
+      <material name="track_dark_l">
+        <color rgba="0.08 0.08 0.08 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="left_track_joint" type="fixed">
+    <origin xyz="0.0048605 0.04466 -0.00614" rpy="0 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="left_track_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <!-- =========================
+       RIGHT TRACK VISUAL ONLY
+       ========================= -->
+  <link name="right_track_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://zumo_1/meshes/right_track_link.STL" />
+      </geometry>
+      <material name="track_dark_r">
+        <color rgba="0.08 0.08 0.08 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_track_joint" type="fixed">
+    <origin xyz="0.0048605 -0.04488 -0.00614" rpy="0 -0.0058913 0" />
+    <parent link="base_link" />
+    <child link="right_track_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+    <!-- =========================
+       IMU
+       ========================= -->
+  <link name="imu_link"/>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0 0.0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+
+  <gazebo reference="imu_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>imu_data</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu_data</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <gaussianNoise>0.005</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <initialOrientationAsReference>true</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+
+  <!-- =========================
+       GAZEBO CONTACT PARAMETERS
+       ========================= -->
+  <gazebo reference="base_link">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>100000</kp>
+    <kd>10.0</kd>
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel_link">
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>120000</kp>
+    <kd>10.0</kd>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel_link">
+    <mu1>1.2</mu1>
+    <mu2>1.2</mu2>
+    <kp>120000</kp>
+    <kd>10.0</kd>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="left_idler_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <kp>100000</kp>
+    <kd>10.0</kd>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+  <gazebo reference="right_idler_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+    <kp>100000</kp>
+    <kd>10.0</kd>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+  <!-- =========================
+       DIFF DRIVE CONTROL
+       ========================= -->
+  <gazebo>
+    <plugin name="zumo_diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <update_rate>100</update_rate>
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.09754</wheel_separation>
+      <wheel_diameter>0.035</wheel_diameter>
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>20.0</max_wheel_acceleration>
+      <command_topic>cmd_vel</command_topic>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom_link</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <odometry_source>1</odometry_source>
+      <ros>
+        <remapping>odom:=wheel/odometry</remapping>
+      </ros>
+    </plugin>
+  </gazebo>
+
+  <!-- =========================
+       JOINT STATE PUBLISHER FOR IDLERS
+       ========================= -->
+  <gazebo>
+    <plugin name="gazebo_ros_joint_state_publisher"
+            filename="libgazebo_ros_joint_state_publisher.so">
+      <update_rate>100</update_rate>
+      <joint_name>right_idler_joint</joint_name>
+      <joint_name>left_idler_joint</joint_name>
+    </plugin>
+  </gazebo>
+
+</robot>
