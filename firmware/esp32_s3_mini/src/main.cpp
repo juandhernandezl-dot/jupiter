@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <WiFi.h>
 #include <micro_ros_platformio.h>
 
 #include <rcl/rcl.h>
@@ -7,39 +6,33 @@
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
 
-#define RCCHECK(fn)                                      \
-  {                                                      \
-    rcl_ret_t rc = fn;                                   \
-    if (rc != RCL_RET_OK) {                              \
-      error_loop();                                      \
-    }                                                    \
+#define RCCHECK(fn)                         \
+  {                                         \
+    rcl_ret_t rc = fn;                      \
+    if (rc != RCL_RET_OK) error_loop();     \
   }
 
-#define RCSOFTCHECK(fn)                                  \
-  {                                                      \
-    rcl_ret_t rc = fn;                                   \
-    (void)rc;                                            \
+#define RCSOFTCHECK(fn)                     \
+  {                                         \
+    rcl_ret_t rc = fn;                      \
+    (void)rc;                               \
   }
 
 rcl_publisher_t publisher;
-rcl_timer_t timer;
+rcl_timer_t     timer;
 rclc_executor_t executor;
-rclc_support_t support;
+rclc_support_t  support;
 rcl_allocator_t allocator;
-rcl_node_t node;
+rcl_node_t      node;
 std_msgs__msg__Int32 msg;
 
 void error_loop()
 {
-  while (true) {
-    delay(100);
-  }
+  while (true) { delay(100); }
 }
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
+void timer_callback(rcl_timer_t * timer, int64_t /*last_call_time*/)
 {
-  (void) last_call_time;
-
   if (timer != NULL) {
     msg.data++;
     RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
@@ -48,25 +41,12 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 
 void setup()
 {
+  // UART0 — pines TX0/RX0 del DevKit v1
   Serial.begin(115200);
-
-  unsigned long t0 = millis();
-  while (!Serial && (millis() - t0 < 3000)) {
-    delay(10);
-  }
-  delay(1000);
-
-  IPAddress agent_ip;
-  agent_ip.fromString(MICROROS_AGENT_IP);
-
-  set_microros_wifi_transports(
-    (char *)MICROROS_WIFI_SSID,
-    (char *)MICROROS_WIFI_PASS,
-    agent_ip,
-    MICROROS_AGENT_PORT
-  );
-
   delay(2000);
+
+  set_microros_serial_transports(Serial);
+  delay(500);
 
   allocator = rcl_get_default_allocator();
 
