@@ -6,6 +6,9 @@
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
 
+// WIFI_SSID, WIFI_PASSWORD, AGENT_IP y AGENT_PORT
+// se definen en platformio.ini bajo build_flags — no editar aquí.
+
 #define RCCHECK(fn)                         \
   {                                         \
     rcl_ret_t rc = fn;                      \
@@ -41,12 +44,21 @@ void timer_callback(rcl_timer_t * timer, int64_t /*last_call_time*/)
 
 void setup()
 {
-  // UART0 — pines TX0/RX0 del DevKit v1
   Serial.begin(115200);
   delay(2000);
 
-  set_microros_serial_transports(Serial);
-  delay(500);
+  // Credenciales e IP vienen de platformio.ini → build_flags
+  IPAddress agent_ip;
+  agent_ip.fromString(AGENT_IP);
+
+  set_microros_wifi_transports(
+    (char*)WIFI_SSID,
+    (char*)WIFI_PASSWORD,
+    agent_ip,
+    AGENT_PORT
+  );
+
+  delay(2000);
 
   allocator = rcl_get_default_allocator();
 
