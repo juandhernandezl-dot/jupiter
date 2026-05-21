@@ -32,6 +32,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'tf_broadcaster_imu = zumo_1.tf_broadcaster_imu:main',      
         ],
     },
 )
