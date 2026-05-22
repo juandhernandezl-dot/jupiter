@@ -198,9 +198,10 @@ ros2 topic list
 
 ---
 
-## 📌 Autor
+## 📌 Autores
 
-- Juan Diego Hernández Loaiza  
+- Juan Diego Hernández Loaiza
+- Juan Sebastián Valencia Pastrana
 - Universidad Autónoma de Occidente  
 
 ---
