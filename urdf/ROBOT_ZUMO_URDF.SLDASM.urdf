@@ -388,7 +388,7 @@
       <right_track>right_track_link</right_track>
       <track_mu>1.5</track_mu>
       <track_mu2>0.3</track_mu2>
-      <steering_efficiency>0.5</steering_efficiency>
+      <steering_efficiency>1.0</steering_efficiency>
       <tracks_separation>0.08954</tracks_separation>
       <max_linear_speed>0.4</max_linear_speed>
       <max_angular_speed>2.0</max_angular_speed>
